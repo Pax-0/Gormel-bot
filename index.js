@@ -1,6 +1,13 @@
 const fs = require('fs');
 const eris = require('eris');
 const {token, prefix} = require('./config.json');
+const clientOptions = {
+    autoreconnect: true,
+    getAllUsers: true,
+    restMode: true,
+    defaultImageFormat: 'png',
+
+}
 const commandOptions = {
     defaultHelpCommand: true,
     description: 'a custom moderation bot',
@@ -9,7 +16,8 @@ const commandOptions = {
     owner: 'Gormel',
     prefix: ['@mention', prefix]
 };
-const bot = new eris.CommandClient(token, {}, {})
+
+const bot = new eris.CommandClient(token, clientOptions, commandOptions)
 
 
 bot.on("ready", () => { // When the bot is ready
