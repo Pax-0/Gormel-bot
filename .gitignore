@@ -3,3 +3,6 @@
 
 # config file too!
 /config.json
+
+# database settings
+/data
