@@ -1,0 +1,14 @@
+{
+  "name": "gormel-bot",
+  "version": "0.0.1",
+  "description": "a custom moderation bot",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "unknown",
+  "license": "MIT",
+  "dependencies": {
+    "eris": "^0.11.2"
+  }
+}
