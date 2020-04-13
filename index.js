@@ -43,6 +43,7 @@ async function loadDB(bot){
     };
     await bot.db.users.load();
     await bot.db.settings.load();
+    console.log(bot.commands)
     return console.log('Connected to DB!');
 }
 
@@ -83,8 +84,15 @@ async function loadCommands(dir){
     if(!commands.length) return console.log('Error: no commands found.');
     for(const commandFile of commands){
         let props = require(`./commands/${commandFile}`);
-        console.log(`loading command: ${props.options.name}`)
-        if(props.options.enabled){
+        console.log(`loading command: ${props.options.name}`);
+        if(props.options.enabled && props.options.hasSubCommands && props.options.subCommands.length ){
+            let parent = await bot.registerCommand(props.options.name, props.generator, {description: props.options.description});
+            props.options.subCommands.forEach(async element => {
+                let subcmd = require(`./commands/${props.options.name}_${element}`);
+                await parent.registerSubcommand(element, subcmd.generator, {description: subcmd.options.description});    
+            });
+        }
+        else if(props.options.enabled){
             bot.registerCommand(props.options.name, props.generator, {});
         }
     };

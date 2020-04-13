@@ -35,8 +35,7 @@ async function checkMessageForBlackListedLink(msg){
         const blackListedLinks = settings.automod.blackListedLinks;
         if(!blackListedLinks.length) return;
 
-        console.log(typeof url, url);
-        if(blackListedLinks.includes(url[0])){
+        if(blackListedLinks.includes(url[0]) || blackListedLinks.includes(url[1])){
             let sent = await msg.channel.createMessage(`${msg.author.mention} Thats a black-listed link.`)
             await msg.delete('contains blacklisted link.');
             setTimeout(await function(){ sent.delete() }, 3000);
