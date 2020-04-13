@@ -1,9 +1,9 @@
 const eris = require('eris');
 
 module.exports.generator = async (msg, args) => {
-    // console.log('Pong!')
     // console.log(msg, args);
-    return msg.channel.createMessage(`Pong!`);
+    const sent = await msg.channel.createMessage(`Pong!`);
+    return sent.edit(`Pong! ${Date.now() - sent.timestamp}\`ms\``);
 };
 
 module.exports.options = {

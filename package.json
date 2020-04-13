@@ -9,6 +9,7 @@
   "author": "unknown",
   "license": "MIT",
   "dependencies": {
-    "eris": "^0.11.2"
+    "eris": "^0.11.2",
+    "nedb": "^1.8.0"
   }
 }
