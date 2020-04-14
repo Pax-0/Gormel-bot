@@ -11,5 +11,5 @@ module.exports.options = {
     description: 'pings the bot.',
     enabled: true,
     hasSubCommands: true,
-    subCommands: ['pong']
+    subCommands: ['pong'],
 };

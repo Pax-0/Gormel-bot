@@ -1,10 +1,6 @@
 const fs = require('fs');
 const eris = require('eris');
-// const utils = require('./structures/utils');
 const Datastore = require('nedb-promises');
-
-// const insertSetting = util.promisify(bot.db.settings.findOne);
-// const findSetting = util.promisify(bot.db.settings.findOne);
 
 const {token, prefix} = require('./config.json');
 const clientOptions = {
@@ -43,7 +39,7 @@ async function loadDB(bot){
     };
     await bot.db.users.load();
     await bot.db.settings.load();
-    console.log(bot.commands)
+    // console.log(bot.commands)
     return console.log('Connected to DB!');
 }
 
@@ -53,6 +49,8 @@ async function checkDBSettings(bot){
     if(!settings){
         console.log('Bot settings not found, inserting empty settings please use the setup command.');
         const doc = {
+            owners: ['143414786913206272'],
+            modRoles: [],
             automod: {
                 enabled: false,
                 bannedWords: [],
@@ -86,18 +84,23 @@ async function loadCommands(dir){
         let props = require(`./commands/${commandFile}`);
         console.log(`loading command: ${props.options.name}`);
         if(props.options.enabled && props.options.hasSubCommands && props.options.subCommands.length ){
-            let parent = await bot.registerCommand(props.options.name, props.generator, {description: props.options.description});
+            let parent = await bot.registerCommand(props.options.name, props.generator, props.options);
             props.options.subCommands.forEach(async element => {
                 let subcmd = require(`./commands/${props.options.name}_${element}`);
-                await parent.registerSubcommand(element, subcmd.generator, {description: subcmd.options.description});    
+                await parent.registerSubcommand(element, subcmd.generator, subcmd.options);    
             });
         }
         else if(props.options.enabled){
-            bot.registerCommand(props.options.name, props.generator, {});
+            await bot.registerCommand(props.options.name, props.generator, props.options);
         }
     };
 };
+bot.permissionsOf = (settings, member) => {
+    let permsNumber = 1;
+    if(settings.owners.includes(member.id)) return permsNumber = 10;
+    if(member.roles.some(role => settings.modRoles.includes(role.id) )) return permsNumber = 2;
 
+}
 bot.connect();
 
 module.exports = bot;

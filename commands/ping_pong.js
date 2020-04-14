@@ -7,7 +7,7 @@ module.exports.generator = async (msg, args) => {
 
 module.exports.options = {
     name: 'pong',
-    description: 'pings the bot.',
+    description: 'ping pong it!',
     enabled: true,
     isSubCommand: true
 };
