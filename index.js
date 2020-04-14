@@ -57,6 +57,10 @@ async function checkDBSettings(bot){
                 bannedWords: [],
                 blackListedLinks: [],
             },
+            lockdown:{
+                locked: false,
+                lockedChannels: [],
+            },
             mutedRole: null,
         } // add the doc if it dosnt exist already.
         await bot.db.settings.insert(doc);
