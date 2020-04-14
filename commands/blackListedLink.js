@@ -1,4 +1,3 @@
-const eris = require('eris');
 const bot = require('../index');
 
 module.exports.generator = async (msg, args) => {
@@ -22,4 +21,13 @@ module.exports.options = {
     description: 'Blacklist a website link.',
     enabled: true,
     argsRequired: true,
+    requirements: {
+        custom: async (msg) => {
+            const bot = require('../index');
+            const settings = await bot.db.settings.findOne({});
+            if(settings.owners.includes(msg.author.id)) return true;
+            if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
+            return false;
+        }
+    }
 };

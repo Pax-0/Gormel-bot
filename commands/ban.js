@@ -1,5 +1,3 @@
-const bot = require('../index');
-
 module.exports.generator = async (msg, args) => {
     let member = resolveMember(args[0], msg);
     let reason = args.length > 1 ? args.slice(1).join(' ') : 'Not specified.'

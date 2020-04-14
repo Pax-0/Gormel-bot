@@ -1,5 +1,6 @@
-async function handler(message){
-    return console.log(message)
+function handler(message){
+    let test;
+    return console.log(message);
     }
     
     module.exports = {
