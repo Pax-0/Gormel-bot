@@ -25,4 +25,13 @@ module.exports.options = {
     argsRequired: true,
     hasSubCommands: true,
     subCommands: ['remove'],
+    requirements: {
+        custom: async (msg) => {
+            const bot = require('../index');
+            const settings = await bot.db.settings.findOne({});
+            if(settings.owners.includes(msg.author.id)) return true;
+            if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
+            return false;
+        }
+    }
 };

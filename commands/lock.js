@@ -32,6 +32,7 @@ module.exports.options = {
     name: 'lock',
     description: 'Lockdown the server.',
     enabled: true,
+    guildOnly: true,
     requirements: {
         custom: async (msg) => {
             const bot = require('../index');

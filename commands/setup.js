@@ -33,5 +33,15 @@ module.exports.options = {
     name: 'setup',
     description: 'Starts the bot setup.',
     enabled: true,
+    guildOnly: true,
+    requirements: {
+        custom: async (msg) => {
+            const bot = require('../index');
+            const settings = await bot.db.settings.findOne({});
+            if(settings.owners.includes(msg.author.id)) return true;
+            if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
+            return false;
+        }
+    }
     // argsRequired: true
 };

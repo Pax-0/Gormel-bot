@@ -29,4 +29,12 @@ module.exports.options = {
     enabled: true,
     argsRequired: true,
     guildOnly: true,
+    requirements: {
+        custom: async (msg) => {
+            const bot = require('../index');
+            const settings = await bot.db.settings.findOne({});
+            if(settings.owners.includes(msg.author.id)) return true;
+            return false;
+        }
+    }
 };
