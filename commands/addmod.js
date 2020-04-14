@@ -1,4 +1,3 @@
-const eris = require('eris');
 const bot = require('../index');
 
 module.exports.generator = async (msg, args) => {
