@@ -47,16 +47,17 @@ async function checkDBSettings(bot){
     const settings = await bot.db.settings.findOne({});
     // console.log(settings);
     if(!settings){
-        console.log('Bot settings not found, inserting empty settings please use the setup command.');
+        console.log('Bot settings not found, inserting default settings please use the setup command.');
         const doc = {
+            setup: false,
             owners: ['143414786913206272'],
             modRoles: [],
             automod: {
                 enabled: false,
                 bannedWords: [],
                 blackListedLinks: [],
-                mutedRole: null,
-            }
+            },
+            mutedRole: null,
         } // add the doc if it dosnt exist already.
         await bot.db.settings.insert(doc);
         return;
