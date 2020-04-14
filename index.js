@@ -82,10 +82,11 @@ async function loadCommands(dir){
     if(!commands.length) return console.log('Error: no commands found.');
     for(const commandFile of commands){
         let props = require(`./commands/${commandFile}`);
-        console.log(`loading command: ${props.options.name}`);
         if(props.options.enabled && props.options.hasSubCommands && props.options.subCommands.length ){
+            console.log(`loading command: ${props.options.name}`);
             let parent = await bot.registerCommand(props.options.name, props.generator, props.options);
             props.options.subCommands.forEach(async element => {
+                console.log(`loading sub command: ${props.options.name}`);
                 let subcmd = require(`./commands/${props.options.name}_${element}`);
                 await parent.registerSubcommand(element, subcmd.generator, subcmd.options);    
             });

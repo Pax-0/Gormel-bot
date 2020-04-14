@@ -3,7 +3,8 @@ const bot = require('../index');
 
 module.exports.generator = async (msg, args) => {
     const settings = await bot.db.settings.findOne({});
-    if(!args.length) return msg.channel.createMessage('Please provide a website link to add to the list.');
+    if(!settings) return msg.channel.createMessage('Unable to locate bot settings..');
+    
     let blackListed = args;
     
     const sent = await msg.channel.createMessage(`Updating links..`);
@@ -19,5 +20,6 @@ async function blackListLink(blackListed){
 module.exports.options = {
     name: 'blacklist',
     description: 'Blacklist a website link.',
-    enabled: true
+    enabled: true,
+    argsRequired: true,
 };

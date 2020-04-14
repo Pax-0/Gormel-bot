@@ -28,5 +28,5 @@ module.exports.options = {
     description: 'Add mod a role.',
     enabled: true,
     argsRequired: true,
-    test: 'Please provide a mod role.'
+    guildOnly: true,
 };

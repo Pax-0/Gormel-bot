@@ -1,17 +1,17 @@
 const bot = require('../index');
-const config = require('../config.json');
-var URLRegex = new RegExp(/((http(s)?(\:\/\/))+(www\.)?([\w\-\.\/])*(\.[a-zA-Z]{2,3}\/?))[^\s\b\n|]*[^.,;:\?\!\@\^\$ -]/);
+const URLRegex = new RegExp(/((http(s)?(\:\/\/))+(www\.)?([\w\-\.\/])*(\.[a-zA-Z]{2,3}\/?))[^\s\b\n|]*[^.,;:\?\!\@\^\$ -]/);
 
 async function handler(msg){
-    await checkMessageForBannedWords(msg);
-    await checkMessageForBlackListedLink(msg);
-    return;
-}
-
-async function checkMessageForBannedWords(msg){
     let settings = await bot.db.settings.findOne({});
     if(!settings) return console.log('Cant locate settings file!');
 
+    if( settings.owners.includes(msg.author.id) || settings.modRoles.some(modRole => msg.member.roles.includes(modRole)) ) return;
+    await checkMessageForBannedWords(msg, settings);
+    await checkMessageForBlackListedLink(msg, settings);
+    return;
+}
+
+async function checkMessageForBannedWords(msg, settings){
     const bannedWords = settings.automod.bannedWords;
     if(!bannedWords.length) return;
 
@@ -25,10 +25,7 @@ async function checkMessageForBannedWords(msg){
     }
 }
 
-async function checkMessageForBlackListedLink(msg){
-    let settings = await bot.db.settings.findOne({});
-    if(!settings) return console.log('Cant locate settings file!');
-    
+async function checkMessageForBlackListedLink(msg, settings){
     let url = msg.content.match(URLRegex);
     if(url){
         console.log('message has a url!', url)

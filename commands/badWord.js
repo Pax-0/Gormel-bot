@@ -3,7 +3,8 @@ const bot = require('../index');
 
 module.exports.generator = async (msg, args) => {
     const settings = await bot.db.settings.findOne({});
-    if(!args.length) return msg.channel.createMessage('Please provide a banned word(s) to add to the list.');
+    if(!settings) return msg.channel.createMessage('Unable to locate bot settings..');
+
     let bannedWords = args.join(' ').split(', ');
     
     const sent = await msg.channel.createMessage(`Updating banned words..`);
@@ -19,6 +20,9 @@ async function addBannedWord(bannedWords){
 }
 module.exports.options = {
     name: 'banword',
-    description: 'add a banned word to the list.',
-    enabled: true
+    description: 'Adds a banned word to the list.',
+    enabled: true,
+    argsRequired: true,
+    hasSubCommands: true,
+    subCommands: ['remove'],
 };

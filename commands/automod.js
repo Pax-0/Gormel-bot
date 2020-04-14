@@ -3,11 +3,11 @@ const bot = require('../index');
 
 module.exports.generator = async (msg, args) => {
     const settings = await bot.db.settings.findOne({});
-    if(!args.length) return msg.channel.createMessage('Please choose an option.');
     if(!settings) return msg.channel.createMessage('Unable to locate bot settings..');
+    
     const sent = await msg.channel.createMessage(`Updating settings...`);
-    await toggleAutomod(toggle, settings)
-    return sent.edit('Updated!');
+    let status = await toggleAutomod(args.length ? args[0] : 'toggle', settings)
+    return sent.edit(`${status ? 'enabled' : 'disabled'} automod!`);
 };
 
 async function toggleAutomod(toggle, settings){
@@ -22,10 +22,10 @@ async function toggleAutomod(toggle, settings){
         status = !settings.automod.enabled;
     }
     await bot.db.settings.update({}, { $set: { 'automod.enabled': status } }, {});
-    return;
+    return status;
 }
 module.exports.options = {
     name: 'automod',
     description: 'Update automod settings.',
-    enabled: true
+    enabled: true,
 };
