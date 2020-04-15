@@ -5,7 +5,6 @@ module.exports.generator = async (msg) => {
 	const sent = await msg.channel.createMessage('Flipping...');
 	try {
 		const {data} = await axios.get(url);
-		console.log(data);
 		return sent.edit(data);   
 	} catch (error) {
 		await sent.edit('Couldnt find a coin to flip.. :(');
