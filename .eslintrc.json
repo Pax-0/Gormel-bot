@@ -14,19 +14,19 @@
     },
     "rules": {
         "indent": [
-            "error",
-            "tab"
+            "warn",
+            "space"
         ],
         "linebreak-style": [
-            "error",
+            "warn",
             "windows"
         ],
         "quotes": [
-            "error",
+            "warn",
             "single"
         ],
         "semi": [
-            "error",
+            "warn",
             "always"
         ]
     }

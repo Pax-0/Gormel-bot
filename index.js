@@ -2,7 +2,7 @@ const fs = require('fs');
 const eris = require('eris');
 const Datastore = require('nedb-promises');
 
-const {token, prefix} = require('./config.json');
+const {token, prefix} = require('./tokens.json');
 const clientOptions = {
 	autoreconnect: true,
 	getAllUsers: true,
