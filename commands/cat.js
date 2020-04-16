@@ -5,13 +5,13 @@ axios.defaults.headers['x-api-key'] = catAPIKey;
 module.exports.generator = async (msg) => {
 	const sent = await msg.channel.createMessage('Looking for a cute doggo...');
 	const ImageEmbed = {
-			author: { // Author property
-				name: msg.author.username,
-				icon_url: msg.author.avatarURL
-			},
-			image: {
-				url: null,
-			}
+		author: { // Author property
+			name: msg.author.username,
+			icon_url: msg.author.avatarURL
+		},
+		image: {
+			url: null,
+		}
 		
 	};
 	try {

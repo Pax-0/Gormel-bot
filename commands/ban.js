@@ -1,24 +1,36 @@
+const utils = require('../structures/utils');
+const bot = require('../index');
 module.exports.generator = async (msg, args) => {
-	let member = resolveMember(args[0], msg);
+	let user = await utils.resolveUser(args[0], bot);
 	let reason = args.length > 1 ? args.slice(1).join(' ') : 'Not specified.';
-	if(!member) return msg.channel.createMessage('I couldnt find that user.');
+	if(!user) return msg.channel.createMessage('I couldnt find that user.');
+
+	const settings = await utils.getDBSettings(bot);
+	if(!settings) return msg.channel.createMessage('Couldnt find bot settings, please use the setup command.');
+
+	const modLog = {
+		userID: user.id,
+		duration: 5000, // need a way to figure out the duration
+		reason: reason,
+		mod: msg.author.id,
+		time: Date.now(),
+		caseType: 'Ban'
+	};
 
 	try {
-		await member.ban(7, `Moderator: ${msg.member.username}#${msg.member.discriminator}\nReason: ${reason}`);
-		return msg.channel.createMessage(`${member.username}#${member.discriminator} was banned!`);
+		await msg.channel.guild.banMember(user.id, 7, encodeURI(`Moderator: ${msg.author.username}#${msg.author.discriminator}\nReason: ${modLog.reason}`));
+		await utils.logCase(msg.channel.guild, modLog, settings, bot);
+		return msg.channel.createMessage(`${user.username}#${user.discriminator} was banned!`);
 	} catch (error) {
 		console.log(error);
 		return msg.channel.createMessage('I couldnt ban that user.');
 	}
 
 };
-function resolveMember(string, msg){
-	let member = msg.channel.guild.members.get(string) || msg.channel.guild.members.find(m => m.user.mention === string) || msg.channel.guild.members.find(m => m.username === string) || msg.channel.guild.members.find(m => m.nick === string);
-	return member;
-}
+
 module.exports.options = {
 	name: 'ban',
-	description: 'Ban a member from the guild.',
+	description: 'Ban a user from the guild.',
 	enabled: true,
 	argsRequired: true,
 	requirements: {

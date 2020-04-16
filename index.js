@@ -29,6 +29,9 @@ bot.on('ready', async () => { // When the bot is ready
 	await loadDB(bot);
 	await utils.checkDBSettings(bot);
 	await startMutedCheckCronJob(bot);
+	
+	// await bot.db.settings.update({}, { $pull: { muted: modLog } }, {});
+	// console.log(bot.resolveCommand('banword'));
 });
 
 async function loadDB(bot){
@@ -79,23 +82,29 @@ async function loadCommands(dir){
 	}
 }
 async function startMutedCheckCronJob(bot){
-	const settings = await bot.db.settings.findOne({})
-	if(!settings) return console.log('Error: Settings file not found!');
 
 	cron.schedule('* * * * *', async () => {
-		if(!settings.muted.length || !settings.mainGuildID || !settings.mutedRole) return;
-		for(const mutedCase of settings.mutedUsers){
+		const settings = await bot.db.settings.findOne({});
+		if(!settings || !settings.muted.length || !settings.mainGuildID || !settings.mutedRole) return;
+		for(const mutedCase of settings.muted){
 			const guild = bot.guilds.get(settings.mainGuildID);
-			let member = await utils.resolveMember(mutedCase.userID, guild);
+			let member = utils.resolveMember(mutedCase.userID, guild);
 			if(!member) return;
 			if(Date.now() - mutedCase.time > mutedCase.duration){
-				await member.removeRole(settings.mutedRole);
-				return bot.db.settings.update({}, { $pull: { 'settings.mutedUsers': mutedCase } }, {});
+				const modLog = {
+					userID: mutedCase.userID,
+					duration: 'null', // need a way to figure out the duration
+					reason: 'Auto Unmute',
+					mod: bot.user.id,
+					time: Date.now(),
+					caseType: 'unmute'
+				};
+				await utils.unmute(guild, settings, modLog, bot);
+				return bot.db.settings.update({}, { $pull: { 'muted': mutedCase } }, {});
 			}
-			return;
 		}
 		// console.log('running a task every minute to check for muted status!');
-	  });
+	});
 }
 
 bot.connect();
