@@ -35,12 +35,8 @@ bot.on('ready', async () => { // When the bot is ready
 
 async function loadDB(bot){
 	const settingsStore = Datastore.create('./data/settings.db');
-	const usersStore = Datastore.create('./data/users.db');
-	bot.db = {
-		users: usersStore,
-		settings: settingsStore
-	};
-	await bot.db.users.load();
+	bot.db.settings = settingsStore;
+	
 	await bot.db.settings.load();
 	// console.log(bot.commands)
 	return console.log('Connected to DB!');
