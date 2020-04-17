@@ -2,8 +2,8 @@
 /node_modules
 
 # config file too!
-/config.json
-/tokens.json
+config.json
+tokens.json
 
 # database settings
 /data

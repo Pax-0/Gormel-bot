@@ -35,7 +35,9 @@ bot.on('ready', async () => { // When the bot is ready
 
 async function loadDB(bot){
 	const settingsStore = Datastore.create('./data/settings.db');
-	bot.db.settings = settingsStore;
+	bot.db = {
+		settings: settingsStore
+	};
 	
 	await bot.db.settings.load();
 	// console.log(bot.commands)
