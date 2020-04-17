@@ -3,6 +3,7 @@
 
 # config file too!
 /config.json
+/tokens.json
 
 # database settings
 /data

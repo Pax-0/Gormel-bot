@@ -4,7 +4,7 @@ const Datastore = require('nedb-promises');
 const cron = require('node-cron');
 const utils = require('./structures/utils');
 
-const {token, prefix} = require('./tokens.json');
+const {token} = require('./tokens.json');
 const clientOptions = {
 	autoreconnect: true,
 	getAllUsers: true,
@@ -16,7 +16,7 @@ const commandOptions = {
 	description: 'a custom moderation bot',
 	name: 'Gormel-bot',
 	owner: 'Gormel',
-	prefix: ['@mention', prefix],
+	prefix: ['@mention', '/'],
 };
 
 const bot = new eris.CommandClient(token, clientOptions, commandOptions);
