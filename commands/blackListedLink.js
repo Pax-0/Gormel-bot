@@ -21,9 +21,10 @@ module.exports.options = {
 	description: 'Blacklist a website link.',
 	enabled: true,
 	argsRequired: true,
+	fullDescription:'Adds a website link to the blacklist, aka no longer usable in the server.',
+	usage:'Link',
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;

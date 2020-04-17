@@ -28,6 +28,8 @@ module.exports.options = {
 	description: 'Update automod settings.',
 	enabled: true,
 	guildOnly: true,
+	fullDescription:'Enables/Disables automod',
+	usage:'on/off',
 	requirements: {
 		custom: async (msg) => {
 			const bot = require('../index');

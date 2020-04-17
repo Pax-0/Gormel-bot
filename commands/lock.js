@@ -32,9 +32,10 @@ module.exports.options = {
 	description: 'Lockdown the server.',
 	enabled: true,
 	guildOnly: true,
+	fullDescription:'Locks all the public channels',
+	usage:'',
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;

@@ -19,14 +19,15 @@ async function addBannedWord(bannedWords){
 }
 module.exports.options = {
 	name: 'banword',
-	description: 'Adds a banned word to the list.',
+	description: 'Adds a banned word(s) to the list.',
 	enabled: true,
 	argsRequired: true,
 	hasSubCommands: true,
+	fullDescription:'Adds a banned word to the bot\'s database, can add multple words at a time, just seperate them with a comma ", "',
+	usage:'bannedword',
 	subCommands: ['remove'],
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;

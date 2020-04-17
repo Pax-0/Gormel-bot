@@ -30,7 +30,6 @@ bot.on('ready', async () => { // When the bot is ready
 	await utils.checkDBSettings(bot);
 	await startMutedCheckCronJob(bot);
 	// await bot.db.settings.update({}, { $pull: { muted: modLog } }, {});
-	// console.log(bot.resolveCommand('banword'));
 });
 
 async function loadDB(bot){
@@ -40,7 +39,6 @@ async function loadDB(bot){
 	};
 	
 	await bot.db.settings.load();
-	// console.log(bot.commands)
 	return console.log('Connected to DB!');
 }
 
@@ -67,12 +65,12 @@ async function loadCommands(dir){
 			console.log(`loading parent command: ${command.options.name}`);
 			let parent = await bot.registerCommand(command.options.name, command.generator, command.options);
 			command.options.subCommands.forEach(async element => {
-				console.log(`loading sub command: ${command.options.name}`);
 				let subcmd = require(`./commands/${command.options.name}_${element}`);
 				await parent.registerSubcommand(element, subcmd.generator, subcmd.options);    
+				console.log(`loading sub command: ${subcmd.options.name} of ${parent.label}`);
 			});
 		}
-		else if(command.options.enabled){
+		else if(command.options.enabled && !command.options.isSubCommand){
 			console.log(`loading command: ${command.options.name}`);
 			await bot.registerCommand(command.options.name, command.generator, command.options);
 		}

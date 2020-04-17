@@ -29,4 +29,6 @@ module.exports.options = {
 	name: 'doggo',
 	description: 'Get a cute doggo',
 	enabled: true,
+	fullDescription:'Sends a random picture of a dog.',
+	usage:'',
 };

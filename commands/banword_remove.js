@@ -23,9 +23,10 @@ module.exports.options = {
 	enabled: true,
 	argsRequired: true,
 	isSubCommand: true,
+	fullDescription:'Removes a banned word from the bot\'s database.',
+	usage:'lactose',
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;

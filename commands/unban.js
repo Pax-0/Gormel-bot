@@ -33,11 +33,12 @@ module.exports.generator = async (msg, args) => {
 module.exports.options = {
 	name: 'unban',
 	description: 'unbans a user',
+	fullDescription:'Removes a ban status from a user',
+	usage:'<user\'s id> reason',
 	enabled: true,
 	argsRequired: true,
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;

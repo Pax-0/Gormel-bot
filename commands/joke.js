@@ -17,4 +17,6 @@ module.exports.options = {
 	name: 'joke',
 	description: 'Get a random joke.',
 	enabled: true,
+	fullDescription:'Sends a random joke in the chat.',
+	usage:'',
 };

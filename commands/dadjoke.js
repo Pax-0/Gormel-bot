@@ -15,4 +15,6 @@ module.exports.options = {
 	name: 'dadjoke',
 	description: 'Get a random dadjoke.',
 	enabled: true,
+	fullDescription:'Want a random dadjoke? cuz i dont, but if you do, then use this command.',
+	usage:'',
 };

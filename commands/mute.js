@@ -5,13 +5,14 @@ module.exports.generator = async (msg, args) => {
 	if(!member) return msg.channel.createMessage('I couldnt find that user.');
 	// mute user time reason
 	const reason = args.length > 2 ? args.slice(2).join(' ') : 'Not specified.';
-	const duration = utils.getDuration(args[1]) ?  utils.getDuration(args[1]) : 'permenant';
+	const duration = args.length > 1 && utils.getDuration(args[1]) ?  utils.getDuration(args[1]) : 'permenant';
 	let settings = await utils.getDBSettings(bot);
 
 	if(!settings){
 		console.log('Error: cant locate bot settings!');
 		return msg.channel.createMessage('There was an error during excution, Please use the setup command first');
 	}
+	if(!settings.setup) return msg.channel.createMessage('Please use the setup command first');
 	if(!settings.mutedRole){
 		await utils.setUpMutedSystem(msg.channel.guild, settings, bot);
 		settings = await utils.getDBSettings(bot);
@@ -20,7 +21,7 @@ module.exports.generator = async (msg, args) => {
 	if(member.roles.includes(settings.mutedRole) || settings.muted.find(muteCase => muteCase.userID === member.id)) return msg.channel.createMessage('That user is already muted.');
 	const modLog = {
 		userID: member.id,
-		duration: duration, // need a way to figure out the duration
+		duration: duration, 
 		reason: reason,
 		mod: msg.author.id,
 		time: Date.now(),
@@ -43,9 +44,10 @@ module.exports.options = {
 	description: 'Mute a member for a certain period of time.',
 	enabled: true,
 	argsRequired: true,
+	fullDescription:'Disable a member\'s ability to chat in the server temporarily',
+	usage:'user duration reason',
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;

@@ -8,8 +8,8 @@ module.exports.generator = async (msg) => {
 
 module.exports.options = {
 	name: 'ping',
-	description: 'pings the bot.',
+	description: 'Pings the bot.',
 	enabled: true,
-	hasSubCommands: true,
-	subCommands: ['pong'],
+	fullDescription:'Tests the bots latency',
+	usage:'',
 };

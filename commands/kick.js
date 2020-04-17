@@ -35,6 +35,8 @@ function resolveMember(string, msg){
 module.exports.options = {
 	name: 'kick',
 	description: 'Remove a member from the guild.',
+	fullDescription:'Kick a member from the server',
+	usage:'user reason',
 	enabled: true,
 	argsRequired: true,
 	requirements: {

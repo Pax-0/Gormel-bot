@@ -39,11 +39,12 @@ module.exports.generator = async (msg, args) => {
 module.exports.options = {
 	name: 'unmute',
 	description: 'Umute a member.',
+	fullDescription:'Removes the muted status from a user.',
+	usage:'user reason',
 	enabled: true,
 	argsRequired: true,
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;

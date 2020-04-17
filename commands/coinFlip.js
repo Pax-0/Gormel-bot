@@ -16,4 +16,6 @@ module.exports.options = {
 	name: 'coinflip',
 	description: 'Flip a coin.',
 	enabled: true,
+	fullDescription:'Flips a coin so you can make a very important life decision.',
+	usage:'',
 };

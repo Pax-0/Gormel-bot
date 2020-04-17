@@ -33,9 +33,11 @@ module.exports.options = {
 	description: 'Ban a user from the guild.',
 	enabled: true,
 	argsRequired: true,
+	fullDescription:'Removes a user from the server, and stops them from joining again unless unbanned.',
+	usage:'user reason',
+	guildOnly: true,
 	requirements: {
 		custom: async (msg) => {
-			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
 			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
