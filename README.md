@@ -1,9 +1,17 @@
 # Gormel-bot
 
-a custom discord bot by Procord
-# Current features:
+A custom discord bot by Procord
 
-**Automod: filtering swear words and blacklisted links.**
-**Server lockdown**
+# Features: 
+auto-moderation for links and swear words.
+lockdown
 
-*P.S* more info will be here once the project is finished.
+Fun and moderation Commands:
+kick
+ban
+mute
+lock
+say
+cat 
+doggo
+joke

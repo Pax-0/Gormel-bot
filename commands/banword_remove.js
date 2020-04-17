@@ -24,7 +24,7 @@ module.exports.options = {
 	argsRequired: true,
 	isSubCommand: true,
 	fullDescription:'Removes a banned word from the bot\'s database.',
-	usage:'lactose',
+	usage:'bannedword',
 	requirements: {
 		custom: async (msg) => {
 			const settings = await bot.db.settings.findOne({});

@@ -32,7 +32,7 @@ module.exports.generator = async (msg, args) => {
 
 module.exports.options = {
 	name: 'unban',
-	description: 'unbans a user',
+	description: 'Unbans a user',
 	fullDescription:'Removes a ban status from a user',
 	usage:'<user\'s id> reason',
 	enabled: true,
