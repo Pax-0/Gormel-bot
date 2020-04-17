@@ -34,7 +34,6 @@ async function loadDefaultDbSettings(bot){
 }
 async function checkDBSettings(bot){
 	const settings = await bot.db.settings.findOne({});
-	console.log(settings);
 	if(!settings) return loadDefaultDbSettings(bot);
 }
 async function getDBSettings(bot){
