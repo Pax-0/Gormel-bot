@@ -3,7 +3,7 @@ const eris = require('eris');
 const Datastore = require('nedb-promises');
 const cron = require('node-cron');
 const utils = require('./structures/utils');
-// console.log(utils);
+
 const {token, prefix} = require('./tokens.json');
 const clientOptions = {
 	autoreconnect: true,
@@ -29,7 +29,6 @@ bot.on('ready', async () => { // When the bot is ready
 	await loadDB(bot);
 	await utils.checkDBSettings(bot);
 	await startMutedCheckCronJob(bot);
-	
 	// await bot.db.settings.update({}, { $pull: { muted: modLog } }, {});
 	// console.log(bot.resolveCommand('banword'));
 });
@@ -90,7 +89,7 @@ async function startMutedCheckCronJob(bot){
 			const guild = bot.guilds.get(settings.mainGuildID);
 			let member = utils.resolveMember(mutedCase.userID, guild);
 			if(!member) return;
-			if(Date.now() - mutedCase.time > mutedCase.duration){
+			if( !isNaN(mutedCase.duration) && Date.now() - mutedCase.time > mutedCase.duration){
 				const modLog = {
 					userID: mutedCase.userID,
 					duration: 'null', // need a way to figure out the duration

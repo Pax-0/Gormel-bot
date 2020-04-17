@@ -10,7 +10,7 @@ module.exports.generator = async (msg, args) => {
 
 	const modLog = {
 		userID: user.id,
-		duration: 5000, // need a way to figure out the duration
+		duration: 'Permenant', // need a way to figure out the duration
 		reason: reason,
 		mod: msg.author.id,
 		time: Date.now(),
@@ -18,7 +18,7 @@ module.exports.generator = async (msg, args) => {
 	};
 
 	try {
-		await msg.channel.guild.banMember(user.id, 7, encodeURI(`Moderator: ${msg.author.username}#${msg.author.discriminator}\nReason: ${modLog.reason}`));
+		await msg.channel.guild.banMember(user.id, 7);
 		await utils.logCase(msg.channel.guild, modLog, settings, bot);
 		return msg.channel.createMessage(`${user.username}#${user.discriminator} was banned!`);
 	} catch (error) {

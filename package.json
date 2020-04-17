@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "eris": "^0.11.2",
+    "ms": "^2.1.2",
     "nedb": "^1.8.0",
     "nedb-promises": "^4.0.1",
     "node-cron": "^2.0.3"
