@@ -12,7 +12,6 @@ module.exports.generator = async (msg, args) => {
 };
 async function addBannedWords(bannedWords){
 	bannedWords.forEach(async (bannedWord) => {
-		console.log(bannedWord);
 		await bot.db.settings.update({}, { $addToSet: { 'automod.bannedWords': bannedWord } }, {});
 	});
 	return;
