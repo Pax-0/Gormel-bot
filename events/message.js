@@ -4,8 +4,7 @@ const URLRegex = new RegExp(/((http(s)?(:\/\/))+(www\.)?([\w\-./])*(\.[a-zA-Z]{2
 async function handler(msg){
 	let settings = await bot.db.settings.findOne({});
 	if(!settings) return console.log('Cant locate settings file!');
-
-	if( settings.owners.includes(msg.author.id) || settings.modRoles.some(modRole => msg.member.roles.includes(modRole)) ) return;
+	if( !msg.channel.guild || !settings.automod.enabled || settings.owners.includes(msg.author.id) || settings.modRoles.some(modRole => msg.member.roles.includes(modRole)) ) return;
 	await checkMessageForBannedWords(msg, settings);
 	await checkMessageForBlackListedLink(msg, settings);
 	return;
