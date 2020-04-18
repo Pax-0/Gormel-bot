@@ -1,13 +1,11 @@
-const url = 'https://icanhazdadjoke.com/slack';
-const axios = require('axios').default;
-const dadjokes = require('../dadjokes.json');
+const dadjokesJson = require('../dadjokes.json');
 
+const dadjokes = Object.entries(dadjokesJson);
 module.exports.generator = async (msg) => {
-	console.log(typeof dadjokes);
+	let random = dadjokes[Math.floor(Math.random() * dadjokes.length)];
 	try {
-		let {data} = await axios.get(url);
-		const dadjoke = data.attachments[0].text;
-		await msg.channel.createMessage(dadjoke);
+
+		await msg.channel.createMessage(random[1]);
 	} catch (error) {
 		await msg.channel.createMessage('Couldnt find a dadjoke :(');
 		return console.log(error);

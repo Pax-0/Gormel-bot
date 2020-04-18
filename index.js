@@ -29,7 +29,6 @@ bot.on('ready', async () => { // When the bot is ready
 	await loadDB(bot);
 	await utils.checkDBSettings(bot);
 	await startMutedCheckCronJob(bot);
-	// await bot.db.settings.update({}, { $pull: { muted: modLog } }, {});
 });
 
 async function loadDB(bot){
