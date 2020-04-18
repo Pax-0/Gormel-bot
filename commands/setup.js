@@ -3,7 +3,7 @@ const utils = require('../structures/utils');
 // this should be the intial command to setup the bot up.
 module.exports.generator = async (msg, args) => {
 	let botPerms = msg.channel.guild.members.get(bot.user.id).permission.json;
-	if(!botPerms.manageRoles || !botPerms.kickMembers || !botPerms.banMembers || !botPerms.manageChannels ){
+	if(!botPerms.manageRoles || !botPerms.kickMembers || !botPerms.manageMessages || !botPerms.banMembers || !botPerms.manageChannels ){
 		return msg.channel.createMessage('I do not have enough permissions to function properly, please ensure i have all of the followins:\nManage Roles, Manage Channels, Ban Members, and Kick Members.');
 	}
 

@@ -27,7 +27,7 @@ module.exports.options = {
 	description: 'Add mod a role.',
 	enabled: true,
 	fullDescription:'Save a role as a mod role in the bot\'s database.',
-	usage:'rolename/role id/ role mention',
+	usage:'Rolename/ Role id / Role mention',
 	argsRequired: true,
 	guildOnly: true,
 	requirements: {

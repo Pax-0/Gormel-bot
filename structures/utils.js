@@ -13,7 +13,7 @@ async function loadDefaultDbSettings(bot){
 	const doc = {
 		setup: false,
 		mainGuildID: null,
-		owners: ['143414786913206272'],
+		owners: ['646800230225936385'], // Gormel's id.
 		modRoles: [],
 		mutedRole: null,
 		modLogs: [],
