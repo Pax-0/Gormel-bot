@@ -1,5 +1,7 @@
 const url = 'https://icanhazdadjoke.com/slack';
 const axios = require('axios').default;
+// const dadjokes = require('../dadjokes.json');
+
 module.exports.generator = async (msg) => {
 	try {
 		let {data} = await axios.get(url);

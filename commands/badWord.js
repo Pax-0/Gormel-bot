@@ -7,12 +7,12 @@ module.exports.generator = async (msg, args) => {
 	let bannedWords = args.join(' ').split(', ');
     
 	const sent = await msg.channel.createMessage('Updating banned words..');
-	await addBannedWord(bannedWords);
+	await addBannedWords(bannedWords);
 	return sent.edit('Updated!');
 };
-async function addBannedWord(bannedWords){
+async function addBannedWords(bannedWords){
 	bannedWords.forEach(async (bannedWord) => {
-		// settings.automod.bannedWords.push(bannedWord);
+		console.log(bannedWord);
 		await bot.db.settings.update({}, { $addToSet: { 'automod.bannedWords': bannedWord } }, {});
 	});
 	return;
@@ -30,7 +30,7 @@ module.exports.options = {
 		custom: async (msg) => {
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
-			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
+			if(msg.member.roles.some(role => settings.modRoles.includes(role) )) return true;
 			return false;
 		}
 	}

@@ -17,11 +17,11 @@ async function checkMessageForBannedWords(msg, settings){
 	for(const bannedWord of bannedWords){
 		if(msg.content.includes(bannedWord)){
 			let sent = await msg.channel.createMessage(`${msg.author.mention} Thats a banned word.`);
-			await msg.delete('contains banned word.');
 			setTimeout(await function(){ sent.delete(); }, 3000);
+			return msg.delete('contains banned word.');
 		}
-		return;
 	}
+	return;
 }
 
 async function checkMessageForBlackListedLink(msg, settings){

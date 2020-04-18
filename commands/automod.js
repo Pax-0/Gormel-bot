@@ -35,7 +35,7 @@ module.exports.options = {
 			const bot = require('../index');
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
-			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
+			if(msg.member.roles.some(role => settings.modRoles.includes(role) )) return true;
 			return false;
 		}
 	}

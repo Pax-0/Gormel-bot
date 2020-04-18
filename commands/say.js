@@ -10,14 +10,13 @@ module.exports.options = {
 	description: 'Make the bot say something.',
 	enabled: true,
 	argsRequired: true,
-	deleteCommand: true,
 	fullDescription:'Have the bot send a message in the same channel.',
 	usage:'message text',
 	requirements: {
 		custom: async (msg) => {
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
-			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
+			if(msg.member.roles.some(role => settings.modRoles.includes(role) )) return true;
 			return false;
 		}
 	}

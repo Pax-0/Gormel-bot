@@ -41,7 +41,7 @@ module.exports.options = {
 		custom: async (msg) => {
 			const settings = await bot.db.settings.findOne({});
 			if(settings.owners.includes(msg.author.id)) return true;
-			if(msg.member.roles.some(role => settings.modRoles.includes(role.id) )) return true;
+			if(msg.member.roles.some(role => settings.modRoles.includes(role) )) return true;
 			return false;
 		}
 	}
