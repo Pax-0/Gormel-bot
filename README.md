@@ -1,6 +1,6 @@
 # Gormel-bot
 
-A custom discord bot by Procord
+A custom discord bot by Pax | Procord
 
 # Features: 
 auto-moderation for links and swear words.
