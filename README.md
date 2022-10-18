@@ -5,7 +5,7 @@ A custom discord bot by Pax | Procord
 # Requirements:
 NodeJS Version 8 or newer
 
-#installation:
+# Installation:
 run "npm install" in the terminal.
 rename "tokens_example.json" to "tokens.json" and paste discord bot token.
 
